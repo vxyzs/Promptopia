@@ -21,11 +21,13 @@ const Nav = () => {
     setProviders();
   },[]);
 
+  console.log(session?.user);
+
   return (
-    <nav className='flex-between w-full mb-16 pt-3'>
+    <nav className='flex-between w-full mb-16 pt-5'>
       <Link href="/" className='flex gap-2 flex-center'>
       <Image src="/assets/images/logo.svg" alt='logo' width={30} height={30} className='object-contain' />
-      <p className='logo_text'>Promptopia</p>
+      <p className='logo_text'>PromptEase</p>
       </Link>
       <div className='sm:flex hidden'>
         { session?.user ? (
@@ -35,7 +37,7 @@ const Nav = () => {
             </Link>
             <Button onClick={signOut} className='outline_btn'>Sign Out</Button> 
             <Link href={'/profile'}>
-              <Image src={"/assets/images/logo.svg"} width={37} height={37} className='rounded-full' alt='profile' />
+              <Image src={session?.user.image} width={37} height={37} className='rounded-full' alt='profile' />
             </Link>
           </div>
         ) : (
@@ -52,7 +54,7 @@ const Nav = () => {
       <div className='sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'> 
-              <Button width={37} height={37} className='rounded-full' onClick={() => settoggledropdown((prev) => !prev)}><Avatar bg='orange' boxSize='1.75em' className='rounded-full'/></Button>
+              <Button width={37} height={37} className='rounded-full' onClick={() => settoggledropdown((prev) => !prev)}><Image src={session?.user.image} width={37} height={37} alt='profile' className='rounded-full'/></Button>
               { toggledropdown && (
                 <div className='dropdown'>
                   <Link href={'/profile'} className='dropdown_link' onClick={() => settoggledropdown(false)} >Profile</Link>
