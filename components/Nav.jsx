@@ -4,7 +4,7 @@ import { Link } from '@chakra-ui/next-js';
 import { Image} from '@chakra-ui/next-js';
 import { useState, useEffect } from 'react';
 import {signIn, signOut, useSession, getProviders } from 'next-auth/react';
-import { Button, Avatar } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 const Nav = () => {
   const { data: session} =useSession();
