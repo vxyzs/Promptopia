@@ -23,7 +23,7 @@ const Feed = () => {
   const [Posts, setPosts] = useState([])
 
   const handlesearchchange = (e) =>{
-
+      setsearchText(e.target.value);
   }
 
   useEffect(() => {
@@ -50,6 +50,7 @@ const Feed = () => {
           onChange={handlesearchchange}
           required
           className="search_input peer bg-white"
+          onKeyDown={handleSearch}
         />
       </form>
 
