@@ -30,7 +30,6 @@
 
 .main:after {
   content: "";
-  background-image: url("/assets/images/grid.svg");
   z-index: 1;
   position: absolute;
   width: 100%;
@@ -47,7 +46,7 @@
   max-width: 640px;
   background-image: radial-gradient(
       at 27% 37%,
-      hsla(215, 98%, 61%, 1) 0px,
+      hsla(21, 98%, 61%, 1) 0px,
       transparent 0%
     ),
     radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
@@ -62,7 +61,7 @@
   height: 100%;
   filter: blur(100px) saturate(150%);
   top: 80px;
-  opacity: 0.15;
+  opacity: 0.17;
 }
 
 @media screen and (max-width: 640px) {
@@ -137,7 +136,7 @@
 
 /* Nav Component */
 .logo_text {
-  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+  @apply max-sm:hidden font-serif font-semibold text-2xl  tracking-wide;
 }
 
 .dropdown {

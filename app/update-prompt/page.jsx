@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 // import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Form from '@components/Form';
 
@@ -13,6 +14,7 @@ const EditPrompt = () => {
         prompt: '',
         tag: '',
     });
+    const [alert, setAlert] = useState({ type: '', message: '' });
     const searchParams = useSearchParams();
     const promptId = searchParams.get('id');
 
@@ -46,16 +48,29 @@ const EditPrompt = () => {
             })
 
             if(res.ok){
-                router.push('/');
+                setAlert({ type: 'success', message: 'Prompt edited successfully! Wait for 3s' });
+            } else {
+                setAlert({ type: 'error', message: 'Failed to edit prompt' });
             }
         } catch (error) {
             console.log(error);
         } finally {
             setsubmittimg(false);
+            setTimeout(() => {
+                setAlert({ type: '', message: '' });
+                router.push('/');
+            }, 3000);
         }
     }
 
   return (
+    <>
+    {alert.type && (
+        <Alert status={alert.type} variant='subtle'>
+            <AlertIcon />
+            {alert.message}
+        </Alert>
+    )}
     <Form 
         type="Edit"
         post={post}
@@ -63,6 +78,7 @@ const EditPrompt = () => {
         submittimg={submittimg}
         handlesubmit= {updatePrompt}
     />
+    </>
   )
 }
 

@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 
-import Form from '@components/Form';
-
+import Form from "@components/Form";
 
 const CreatePrompt = () => {
     const { data: session} = useSession();
@@ -14,6 +14,7 @@ const CreatePrompt = () => {
         prompt: '',
         tag: '',
     });
+    const [alert, setAlert] = useState({ type: '', message: '' });
 
     const createPrompt = async (e) => {
         e.preventDefault();
@@ -30,24 +31,39 @@ const CreatePrompt = () => {
             })
 
             if(res.ok){
-                router.push('/');
+                setAlert({ type: 'success', message: 'Prompt created successfully! Wait for 3s' });
+            } else {
+                setAlert({ type: 'error', message: 'Failed to create prompt' });
             }
         } catch (error) {
             console.log(error);
+            setAlert({ type: 'error', message: 'Failed to create prompt' });
         } finally {
             setsubmittimg(false);
+            setTimeout(() => {
+                setAlert({ type: '', message: '' });
+                router.push('/');
+            }, 3000);
         }
     }
 
-  return (
-    <Form 
-        type="Create"
-        post={post}
-        setpost={setpost}
-        submittimg={submittimg}
-        handlesubmit= {createPrompt}
-    />
-  )
+    return (
+        <>
+            {alert.type && (
+                <Alert status={alert.type} variant='subtle'>
+                    <AlertIcon />
+                    {alert.message}
+                </Alert>
+            )}
+            <Form
+                type="Create"
+                post={post}
+                setpost={setpost}
+                submittimg={submittimg}
+                handlesubmit= {createPrompt}
+            />
+        </>
+    )
 }
 
-export default CreatePrompt
+export default CreatePrompt;
