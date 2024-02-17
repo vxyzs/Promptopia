@@ -1,15 +1,15 @@
 'use client'
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
+import { useSearchParams } from "next/navigation"; // Use next/router instead of next/navigation
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Form from '@components/Form';
 
-
 const EditPrompt = () => {
     const router = useRouter();
-    const [submittimg, setsubmittimg] = useState(false);
-    const [post, setpost] = useState({
+    const [submitting, setSubmitting] = useState(false);
+    const [post, setPost] = useState({
         prompt: '',
         tag: '',
     });
@@ -22,20 +22,20 @@ const EditPrompt = () => {
             const response = await fetch(`/api/prompt/${promptId}`);
             const data = await response.json();
 
-            setpost({
+            setPost({
                 prompt: data.prompt,
                 tag: data.tag,
-            })
-        }
+            });
+        };
 
-        if(promptId) getPromptDetails();
-    },[promptId])
+        if (promptId) getPromptDetails();
+    }, [promptId]);
 
     const updatePrompt = async (e) => {
         e.preventDefault();
-        setsubmittimg(true);
+        setSubmitting(true);
 
-        if(!promptId) return alert('Prompt ID not found.');
+        if (!promptId) return alert('Prompt ID not found.');
 
         try {
             const res = await fetch(`/api/prompt/${promptId}`, {
@@ -44,9 +44,9 @@ const EditPrompt = () => {
                     prompt: post.prompt,
                     tag: post.tag
                 })
-            })
+            });
 
-            if(res.ok){
+            if (res.ok) {
                 setAlert({ type: 'success', message: 'Prompt edited successfully! Wait for 3s' });
             } else {
                 setAlert({ type: 'error', message: 'Failed to edit prompt' });
@@ -54,31 +54,33 @@ const EditPrompt = () => {
         } catch (error) {
             console.log(error);
         } finally {
-            setsubmittimg(false);
+            setSubmitting(false);
             setTimeout(() => {
                 setAlert({ type: '', message: '' });
                 router.push('/');
             }, 3000);
         }
-    }
+    };
 
-  return (
-    <>
-    {alert.type && (
-        <Alert status={alert.type} variant='subtle'>
-            <AlertIcon />
-            {alert.message}
-        </Alert>
-    )}
-    <Form 
-        type="Edit"
-        post={post}
-        setpost={setpost}
-        submittimg={submittimg}
-        handlesubmit= {updatePrompt}
-    />
-    </>
-  )
-}
+    return (
+        <Suspense fallback={<div>Loading...</div>}> {/* Wrap your component in a Suspense boundary */}
+            <>
+                {alert.type && (
+                    <Alert status={alert.type} variant='subtle'>
+                        <AlertIcon />
+                        {alert.message}
+                    </Alert>
+                )}
+                <Form
+                    type="Edit"
+                    post={post}
+                    setPost={setPost}
+                    submitting={submitting}
+                    handleSubmit={updatePrompt}
+                />
+            </>
+        </Suspense>
+    );
+};
 
-export default EditPrompt
+export default EditPrompt;
