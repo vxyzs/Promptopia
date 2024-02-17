@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Feed from '@components/Feed';
 import { useEffect, useState } from 'react';
+import { Divider } from '@chakra-ui/react';
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +28,7 @@ const Home = () => {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 1.5 }}
           >
-            <h1 className="head_text text-center">
+            <h1 className="head_text text-center orange_gradient">
               Discover & Share 
               <br className="max-md:hidden" />
               <span className="blue_gradient text-center"> AI-Powered Prompts</span> 

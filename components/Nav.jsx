@@ -4,7 +4,7 @@ import { Link } from '@chakra-ui/next-js';
 import { Image} from '@chakra-ui/next-js';
 import { useState, useEffect } from 'react';
 import {signIn, signOut, useSession, getProviders } from 'next-auth/react';
-import { Button } from '@chakra-ui/react';
+import { Button, Divider } from '@chakra-ui/react';
 
 const Nav = () => {
   const { data: session} =useSession();
@@ -37,7 +37,7 @@ const Nav = () => {
             </Link>
             <Button onClick={signOut} className='outline_btn'>Sign Out</Button> 
             <Link href={'/profile'}>
-              <Image src={session?.user.image} width={37} height={37} className='rounded-full' alt='profile' />
+              <Image src={session?.user.image} width={37} height={37} className='rounded-full hover:scale-95' alt='profile' />
             </Link>
           </div>
         ) : (

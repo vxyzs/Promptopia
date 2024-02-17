@@ -58,7 +58,7 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form className="relative w-full flex-center bg-gray-100">
+      <form className="relative w-full flex-center bg-gray-50">
         <InputGroup>
         <InputLeftElement pointerEvents='none'>
           <SearchIcon color='gray.300' />
