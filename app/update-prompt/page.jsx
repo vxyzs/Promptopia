@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, Suspense } from "react";
-import { useRouter } from "next/navigation"; // Use next/router instead of next/navigation
-import { useSearchParams } from "next/navigation"; // Use next/router instead of next/navigation
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation"; 
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Form from '@components/Form';
@@ -63,7 +63,7 @@ const EditPrompt = () => {
     };
 
     return (
-        <Suspense fallback={<div>Loading...</div>}> {/* Wrap your component in a Suspense boundary */}
+        <Suspense fallback={<div>Loading...</div>}>
             <>
                 {alert.type && (
                     <Alert status={alert.type} variant='subtle'>
