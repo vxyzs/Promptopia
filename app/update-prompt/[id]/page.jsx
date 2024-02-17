@@ -5,7 +5,7 @@ import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Form from '@components/Form';
 
-const EditPrompt = () => {
+const EditPrompt = ({params}) => {
     const router = useRouter();
     const [submitting, setSubmitting] = useState(false);
     const [post, setPost] = useState({
