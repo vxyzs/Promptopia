@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/CommunityOfCoders/Inheritance-2023">
-    <img src="./public/logo-text.png" alt="PromptEase" width="400" height="166">
+    <img src="./public/logo-text.png" alt="PromptEase" width="400" height="148">
   </a>
   <br>
   PromptEase
@@ -76,9 +76,7 @@ and many more, including code architecture and reusability
 ## 🔮Future Scope
 
 - [ ] Providing github authorization using NextAuth
-- [ ] Addition of liking the prompt feature.
-- [ ] Instead of using external APIs, real-time data can be fetched from web-scraping
-- [ ] Warning notification, if any flight, and hotel booking is cancelled
+- [ ] Addition of liking the prompt, feature.
 
 ## 💸Applications
 
