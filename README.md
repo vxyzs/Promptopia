@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/CommunityOfCoders/Inheritance-2023">
-    <img src="./public/logo-text.png" alt="PromptEase" width="400" height="166">
+    <img src="./public/logo-text.png" alt="PromptEase" width="400" height="150">
   </a>
   <br>
   PromptEase
