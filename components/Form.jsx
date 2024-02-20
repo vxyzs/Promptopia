@@ -4,7 +4,7 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-const Form = ({type, post, setpost, submittimg, handlesubmit}) => {
+const Form = ({type, post, setPost, submittimg, handlesubmit}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -33,12 +33,12 @@ const Form = ({type, post, setpost, submittimg, handlesubmit}) => {
             >
             <FormLabel>
                 <span className='font-satoshi font-semibold text-base text-gray-700'>Your AI prompt</span>
-                <Textarea value={post.prompt} onChange={(e) => setpost({ ...post, prompt: e.target.value})} placeholder='Write your prompt here...' required className='form_textarea' />
+                <Textarea value={post.prompt} onChange={(e) => setPost({ ...post, prompt: e.target.value})} placeholder='Write your prompt here...' required className='form_textarea' />
             </FormLabel>
 
             <FormLabel>
                 <span className='font-satoshi font-semibold text-base text-gray-700'>Tag {' '} <span className='font-normal'>(#product, #webdevelopment,#idea)</span></span>
-                <Input value={post.tag} onChange={(e) => setpost({ ...post, tag: e.target.value})} placeholder='#tag...' required className='form_input' />
+                <Input value={post.tag} onChange={(e) => setPost({ ...post, tag: e.target.value})} placeholder='#tag...' required className='form_input' />
             </FormLabel>
 
             <div className='flex-end mx-3 mb-5 gap-4'>
