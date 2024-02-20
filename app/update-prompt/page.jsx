@@ -1,9 +1,8 @@
 'use client'
 import { useEffect, useState } from "react";
-// import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Alert, AlertIcon } from "@chakra-ui/react";
-
+import { Suspense } from "react";
 import Form from '@components/Form';
 
 
@@ -64,6 +63,7 @@ const EditPrompt = () => {
     }
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <>
     {alert.type && (
         <Alert status={alert.type} variant='subtle'>
@@ -79,6 +79,7 @@ const EditPrompt = () => {
         handlesubmit= {updatePrompt}
     />
     </>
+    </Suspense>
   )
 }
 
