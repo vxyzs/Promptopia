@@ -1,13 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
-// import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Form from '@components/Form';
 
 
-const EditPrompt = () => {
+const EditPrompt = ({params}) => {
     const router = useRouter();
     const [submittimg, setsubmittimg] = useState(false);
     const [post, setpost] = useState({
@@ -15,8 +14,7 @@ const EditPrompt = () => {
         tag: '',
     });
     const [alert, setAlert] = useState({ type: '', message: '' });
-    const searchParams = useSearchParams();
-    const promptId = searchParams.get('id');
+    const promptId = params?.id;
 
     useEffect(() => {
         const getPromptDetails = async () => {
@@ -81,5 +79,6 @@ const EditPrompt = () => {
     </>
   )
 }
+
 
 export default EditPrompt
