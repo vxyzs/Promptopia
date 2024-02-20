@@ -58,7 +58,7 @@ const CreatePrompt = () => {
             <Form
                 type="Create"
                 post={post}
-                setpost={setpost}
+                setPost={setpost}
                 submittimg={submittimg}
                 handlesubmit= {createPrompt}
             />
