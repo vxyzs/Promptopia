@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Alert, AlertIcon } from "@chakra-ui/react";
-import { Suspense } from "react";
+
 import Form from '@components/Form';
 
 
-const EditPrompt = () => {
+const EditPrompt = ({params}) => {
     const router = useRouter();
     const [submittimg, setsubmittimg] = useState(false);
     const [post, setpost] = useState({
@@ -14,8 +14,7 @@ const EditPrompt = () => {
         tag: '',
     });
     const [alert, setAlert] = useState({ type: '', message: '' });
-    const searchParams = useSearchParams();
-    const promptId = searchParams.get('id');
+    const promptId = params?.id;
 
     useEffect(() => {
         const getPromptDetails = async () => {
@@ -63,7 +62,6 @@ const EditPrompt = () => {
     }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
     <>
     {alert.type && (
         <Alert status={alert.type} variant='subtle'>
@@ -74,13 +72,13 @@ const EditPrompt = () => {
     <Form 
         type="Edit"
         post={post}
-        setpost={setpost}
+        setPost={setpost}
         submittimg={submittimg}
         handlesubmit= {updatePrompt}
     />
     </>
-    </Suspense>
   )
 }
+
 
 export default EditPrompt
