@@ -2,7 +2,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Feed from '@components/Feed';
 import { useEffect, useState } from 'react';
-import { Divider } from '@chakra-ui/react';
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);

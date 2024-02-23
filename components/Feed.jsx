@@ -77,7 +77,7 @@ const Feed = () => {
 
       <PromptCardList
         data={searchText ? searchedPosts : posts}
-        handleTagClick={handleTagClick}
+        handleTagClick={handleTagClick} 
       />     
     </section>
   );

@@ -3,36 +3,78 @@ import { useState } from 'react';
 import { Image, } from '@chakra-ui/next-js';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
+import { AiOutlineLike } from "react-icons/ai";
 import { Tag,Button, Divider, Popover, PopoverArrow,PopoverTrigger, PopoverBody, PopoverCloseButton, Portal, PopoverContent,PopoverHeader } from '@chakra-ui/react';
 
 const promptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
     const {data:session} = useSession();
     const pathname = usePathname();
     const router = useRouter();
+    const [Post, setpost] = useState(post);
     const [copied, setcopied] = useState("");
+    const [liked, setliked] = useState(false);
 
     const handleProfileClick = () => {
-        console.log(post);
-        if (post.creator._id === session?.user?.id) {
+        console.log(Post);
+        if (Post.creator._id === session?.user?.id) {
             router.push('/profile');
         } else {
-            const { _id, username } = post.creator;
+            const { _id, username } = Post.creator;
             router.push(`/others-profile/${_id}?username=${username}`);
         }
     }
 
     const handleCopy = () => {
-        setcopied(post.prompt);
-        navigator.clipboard.writeText(post.prompt);
+        setcopied(Post.prompt);
+        navigator.clipboard.writeText(Post.prompt);
         setTimeout(() => setcopied(""),5000);
         alert("Copied to clipboard");
     }
+    const handlelikes = async () => {
+        if (!session) {
+            alert('Please login!');
+            return;
+        }
+    
+        const newLiked = !liked;
+    
+        setliked(newLiked);
+    
+        setpost(prevPost => ({
+            ...prevPost,
+            likes: newLiked ? prevPost.likes + 1 : prevPost.likes - 1,
+        }));
+    
+        try {
+            const res = await fetch(`/api/prompt/${Post._id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    prompt: Post.prompt,
+                    tag: Post.tag,
+                    likes: newLiked ? Post.likes + 1 : Post.likes - 1,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (res.ok) {
+                console.log(newLiked ? 'liked' : 'disliked');
+            } else {
+                console.error('Failed to update like status');
+            }
+        } catch (error) {
+            console.error('Error updating like status:', error);
+        }
+    };
+    
+    
   return (
     <div className='prompt_card'>
         <div className='flex justify-between items-start gap-5 pb-2'>
             <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer ' onClick={handleProfileClick}>
                 <Image 
-                    src={post.creator.image}
+                    src={Post.creator.image}
                     alt='user_image'
                     width={16}
                     height={16}
@@ -40,26 +82,31 @@ const promptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
                 />
 
                 <div className='flex flex-col'>
-                    <h3 className='font-satoshi font-semibold text-gray-900'>{post.creator.username}</h3>
-                    <p className='font-inter text-sm text-gray-500'>{post.creator.email}</p>
+                    <h3 className='font-satoshi font-semibold text-gray-900'>{Post.creator.username}</h3>
+                    <p className='font-inter text-sm text-gray-500'>{Post.creator.email}</p>
                 </div>
             </div>
 
             <div className='copy_btn ' onClick={handleCopy}>
                 <Image 
-                    src={copied === post.prompt ? '/assets/icons/tick.svg' : '/assets/icons/copy.svg'}
+                    src={copied === Post.prompt ? '/assets/icons/tick.svg' : '/assets/icons/copy.svg'}
                     width={8}
                     height={8}
                     alt='copy'
                     className=' hover:scale-90 '
                 />
             </div>
-        </div> 
+            {session?.user.id !== Post.creator._id && pathname !== '/profile' && (
+                <div className='flex flex-col gap-1 justify-center items-center'>
+                    <AiOutlineLike className='copy_btn hover:scale-95' onClick={handlelikes}/>
+                    <p>{Post.likes}</p>
+                </div>
+            )}
+        </div>
         <Divider orientation='horizontal' />
-        <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
-        <Tag colorScheme={'blue'} className='font-serif text-sm cursor-pointer hover:scale-95' onClick={() => handleTagClick && handleTagClick(post.tag)}>#{post.tag}</Tag>  
-
-        {session?.user.id === post.creator._id && pathname === '/profile' && (
+        <p className='my-4 font-satoshi text-sm text-gray-700'>{Post.prompt}</p>
+        <Tag colorScheme={'blue'} className='font-serif text-sm cursor-pointer hover:scale-95 w-fit' onClick={() => handleTagClick && handleTagClick(Post.tag)}>#{Post.tag}</Tag> 
+        {session?.user.id === Post.creator._id && pathname === '/profile' && (
             <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
                 <p className='font-inter text-sm green_gradient cursor-pointer' onClick={handleEdit}>
                     Edit
