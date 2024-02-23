@@ -5,6 +5,8 @@ import { Image} from '@chakra-ui/next-js';
 import { useState, useEffect } from 'react';
 import {signIn, signOut, useSession, getProviders } from 'next-auth/react';
 import { Button, Divider } from '@chakra-ui/react';
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const Nav = () => {
   const { data: session} =useSession();
@@ -41,13 +43,13 @@ const Nav = () => {
             </Link>
           </div>
         ) : (
-          <>
+          <div className='flex flex-row gap-1'>
             {providers && Object.values(providers).map((provider) => (
               <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn'>
-                Sign In
+                {provider.name === 'Google' ? <FcGoogle /> : <FaGithub />}
               </Button>
             ))}
-          </>
+          </div>
         )}
       </div>
       {/*Mobile Navigation */}
@@ -64,13 +66,13 @@ const Nav = () => {
               )}
           </div>
         ) : (
-          <>
+          <div className='flex flex-row gap-1'>
             {providers && Object.values(providers).map((provider) => (
               <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn'>
-                Sign In
+                {provider.name === 'Google' ? <FcGoogle /> : <FaGithub />}
               </Button>
             ))}
-          </>
+          </div>
         )}
       </div>
     </nav>
