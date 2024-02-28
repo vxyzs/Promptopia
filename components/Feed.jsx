@@ -13,7 +13,7 @@ const PromptCardList = ({ data, handleTagClick, likedPrompts }) => {
           key={post._id}
           post={post}
           handleTagClick={handleTagClick}
-          likedPrompts = {likedPrompts}
+          likedPrompts 
         />
       ))}
     </div>
