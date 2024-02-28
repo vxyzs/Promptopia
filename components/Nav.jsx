@@ -45,7 +45,7 @@ const Nav = () => {
         ) : (
           <div className='flex flex-row gap-1'>
             {providers && Object.values(providers).map((provider) => (
-              <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn'>
+              <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn rounded-full'>
                 {provider.name === 'Google' ? <FcGoogle /> : <FaGithub />}
               </Button>
             ))}
@@ -68,7 +68,7 @@ const Nav = () => {
         ) : (
           <div className='flex flex-row gap-1'>
             {providers && Object.values(providers).map((provider) => (
-              <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn'>
+              <Button type='button' key={provider.name} onClick={() => signIn(provider.id)} className='black_btn rounded-full'>
                 {provider.name === 'Google' ? <FcGoogle /> : <FaGithub />}
               </Button>
             ))}

@@ -28,7 +28,6 @@ export const PATCH = async (request , {params}) => {
         existingPrompt.prompt = prompt;
         existingPrompt.tag = tag;
         existingPrompt.likes = likes;
-        console.log(likes);
 
         await existingPrompt.save();
 
