@@ -37,11 +37,13 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
             return;
         }
 
+        const newLiked = !liked;
 
-        setLiked(!liked)
+        setLiked(newLiked);
+
         setpost(prevPost => ({
             ...prevPost,
-            likes: liked ? prevPost.likes - 1 : prevPost.likes + 1,
+            likes: newLiked ? prevPost.likes + 1 : prevPost.likes - 1,
         }));
 
         try {
@@ -50,7 +52,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
                 body: JSON.stringify({
                     prompt: Post.prompt,
                     tag: Post.tag,
-                    likes: liked ? Post.likes - 1 : Post.likes + 1,
+                    likes: newLiked ? Post.likes + 1 : Post.likes - 1,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +68,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
             console.error('Error updating like status:', error);
         }
 
-        if (!liked) {
+        if (newLiked) {
             try {
                 const res = await fetch(`/api/users/${session?.user?.id}/likedPosts/${Post._id}`, {
                     method: 'POST',

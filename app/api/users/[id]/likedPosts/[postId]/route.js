@@ -13,9 +13,10 @@ export const POST = async (request, { params }) => {
         
         const prompt = await Prompt.findById(postId);
         console.log(prompt);
-
-        const likedPromptIndex = user.likedPrompts?.find(likedPrompt => likedPrompt.equals(postId));
-        if (likedPromptIndex) return new Response("Already liked", { status: 400 });
+        if(user.likedPrompts){
+            const likedPromptIndex = user.likedPrompts?.indexOf(postId);
+            if (likedPromptIndex !== -1) return new Response("Already liked", { status: 400 });
+        }
 
         if (!user.likedPrompts) {
             user.likedPrompts = [];
@@ -41,7 +42,7 @@ export const DELETE = async (request, { params }) => {
         const user = await User.findById(id);
         if (!user) return new Response("User not found!", { status: 404 });
 
-        const likedPromptIndex = user.likedPrompts.find(likedPrompt => likedPrompt.equals(postId));
+        const likedPromptIndex = user.likedPrompts?.indexOf(postId);
         if (likedPromptIndex === -1) return new Response("Prompt is not liked!", { status: 400 });
 
         user.likedPrompts.splice(likedPromptIndex, 1);
