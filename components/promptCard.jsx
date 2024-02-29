@@ -66,7 +66,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
             }
         } catch (error) {
             console.error('Error updating like status:', error);
-        }
+        } 
 
         if (newLiked) {
             try {
@@ -114,6 +114,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
         } else {
             setLiked(false);
         }
+        setpost(post);
     }, [likedPrompts]);
 
     return (
