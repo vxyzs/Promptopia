@@ -115,7 +115,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
             setLiked(false);
         }
         setpost(post);
-    }, [likedPrompts]);
+    }, [likedPrompts, post]);
 
     return (
         <div className='prompt_card'>
