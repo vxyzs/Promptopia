@@ -109,12 +109,27 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
     };
 
     useEffect(() => {
-        if (likedPrompts && likedPrompts.find(prompt => prompt._id === Post._id)) {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`/api/prompt/${post?._id}`, {
+                    method: 'GET',
+                });
+                const data = await response.json();
+                console.log(data);
+                setpost(data);
+            } catch (error) {
+                console.error('Error fetching post:', error);
+            }
+        };
+
+        if (likedPrompts && likedPrompts.find(prompt => prompt._id === post?._id)) {
             setLiked(true);
         } else {
             setLiked(false);
         }
-        setpost(post);
+
+        fetchData();
+
     }, [likedPrompts, post]);
 
     return (
