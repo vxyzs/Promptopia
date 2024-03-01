@@ -13,6 +13,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
     const [copied, setCopied] = useState("");
     const [liked, setLiked] = useState(false);
     const [Post, setpost] = useState(post);
+    const [shouldRender, setShouldRender] = useState(false);
 
     const handleProfileClick = () => {
         console.log(post);
@@ -119,18 +120,31 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
                 setpost(data);
             } catch (error) {
                 console.error('Error fetching post:', error);
+            } finally {
+                if (likedPrompts && likedPrompts.find(prompt => prompt._id === post?._id)) {
+                    setLiked(true);
+                } else {
+                    setLiked(false);
+                }
             }
         };
-
-        if (likedPrompts && likedPrompts.find(prompt => prompt._id === post?._id)) {
-            setLiked(true);
-        } else {
-            setLiked(false);
-        }
-
+    
         fetchData();
+    
+    }, [likedPrompts,post]);
+    
 
-    }, [likedPrompts, post]);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+          setShouldRender(true); // Trigger re-render after 1 second
+        }, 1000);
+    
+        return () => clearTimeout(timer); // Cleanup timer on component unmount
+    
+      }, []); 
+    
+    
+    
 
     return (
         <div className='prompt_card'>
@@ -160,7 +174,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
                     />
                 </div>
                 <div className='flex flex-col gap-1 justify-center items-center'>
-                    {session?.user.id !== Post.creator?._id && pathname !== '/profile' && (
+                    {shouldRender && session?.user.id !== Post.creator?._id && pathname !== '/profile' && (
                         <AiOutlineLike color={liked ? 'red' : 'gray'} className='copy_btn hover:scale-95' onClick={handleLikes} />
                     )}
                     <p className='font-satoshi font-light text-xs'>{Post.likes} {Post.likes === 1 ? 'like' : 'likes'}</p>

@@ -147,10 +147,55 @@
   @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
 }
 
-/* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply relative flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+  transition: border-color 1s ease;
+  position: relative;
 }
+
+
+.prompt_card:hover::before,
+.prompt_card:hover::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 2px solid transparent;
+  pointer-events: none;
+  animation: moving-border 10s infinite;
+  border-radius: 8px;
+}
+
+.prompt_card:hover::before {
+  animation-delay: -0.5s;
+}
+
+.prompt_card:hover::after {
+  animation-delay: 0.5s;
+}
+
+@keyframes moving-border {
+  0% {
+    border-color: transparent;
+  }
+  25% {
+    border-color: rgba(212, 63, 63, 0.5);
+  }
+  50% {
+    border-color: rgba(255, 158, 0, 0.5);
+  }
+  100% {
+    border-color: rgba(212, 63, 63, 0.5);
+  }
+}
+
+
+
+
 
 .flex-center {
   @apply flex justify-center items-center;
