@@ -52,8 +52,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
           >
             <Tabs isFitted variant='enclosed'>
               <TabList mb='1em'>
-                <Tab>My Prompts</Tab>
-                <Tab>Liked Prompts</Tab>
+                <Tab>My Posts</Tab>
+                <Tab>Liked Posts</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>

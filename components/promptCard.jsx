@@ -4,6 +4,8 @@ import { Image } from '@chakra-ui/next-js';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { AiOutlineLike } from "react-icons/ai";
+import { MdAttachMoney } from "react-icons/md";
+import Link from "next/link";
 import { Tag, Button, Divider, Popover, PopoverArrow, PopoverTrigger, PopoverBody, PopoverCloseButton, Portal, PopoverContent, PopoverHeader } from '@chakra-ui/react';
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPrompts }) => {
@@ -182,7 +184,14 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete, likedPromp
             </div>
             <Divider orientation='horizontal' />
             <p className='my-4 font-satoshi text-sm text-gray-700'>{Post.prompt}</p>
-            <Tag colorScheme={'blue'} className='font-serif text-sm cursor-pointer hover:scale-95 w-fit' onClick={() => handleTagClick && handleTagClick(Post.tag)}>#{Post.tag}</Tag>
+            <div className="flex w-full justify-between">
+                <div>
+                    <Tag colorScheme={'blue'} className='font-serif text-sm cursor-pointer hover:scale-95 w-fit' onClick={() => handleTagClick && handleTagClick(Post.tag)}>#{Post.tag}</Tag>
+                </div>
+                <div>
+                    <MdAttachMoney className="cursor-pointer copy_btn hover:scale-95"/>
+                </div>
+            </div>
             {session?.user.id === Post.creator?._id && pathname === '/profile' && (
                 <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
                     <p className='font-inter text-sm green_gradient cursor-pointer' onClick={handleEdit}>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
-import Form from '@components/Form';
+import Form from '../../../components/Form';
 
 
 const EditPrompt = ({params}) => {

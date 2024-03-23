@@ -1,6 +1,6 @@
-import Prompt from "@models/prompt";
-import User from "@models/user";
-import { connectToDB } from "@utils/database";
+import Prompt from "../../../../models/prompt"
+import User from '../../../../../models/user'
+import { connectToDB } from "../../../../../utils/database"; 
 
 export const POST = async (request, { params }) => {
     const postId = params.postId;

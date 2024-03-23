@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
-import Form from "@components/Form";
+import Form from "../../components/Form"
 
 const CreatePrompt = () => {
     const { data: session} = useSession();
@@ -31,13 +31,13 @@ const CreatePrompt = () => {
             })
 
             if(res.ok){
-                setAlert({ type: 'success', message: 'Prompt created successfully! Wait for 3s' });
+                setAlert({ type: 'success', message: 'Post created successfully! Wait for 3s' });
             } else {
-                setAlert({ type: 'error', message: 'Failed to create prompt' });
+                setAlert({ type: 'error', message: 'Failed to create post' });
             }
         } catch (error) {
             console.log(error);
-            setAlert({ type: 'error', message: 'Failed to create prompt' });
+            setAlert({ type: 'error', message: 'Failed to create post' });
         } finally {
             setsubmittimg(false);
             setTimeout(() => {

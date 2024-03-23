@@ -72,6 +72,7 @@
 
 /* Tailwind Styles */
 
+
 .app {
   @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
 }
@@ -117,12 +118,12 @@
 }
 
 .prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+  @apply space-y-6 py-8 sm:columns-1 sm:gap-6 xl:columns-1;
 }
 
 /* Feed Component */
 .feed {
-  @apply mt-8 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mt-4 mx-auto w-full max-w-4xl  flex justify-center items-center flex-col gap-2;
 }
 
 /* Form Component */
@@ -148,7 +149,7 @@
 }
 
 .prompt_card {
-  @apply relative flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply relative flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[720px] w-full h-fit;
   box-shadow: none;
   transition: box-shadow 0.3s ease;
   transition: border-color 1s ease;

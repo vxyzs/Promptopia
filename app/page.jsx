@@ -1,8 +1,8 @@
 'use client'
 import { motion, AnimatePresence } from 'framer-motion';
-import Feed from '@components/Feed';
+import Feed from '../components/Feed';
 import { useEffect, useState } from 'react';
-import { TypewriterEffect } from '@components/ui/TypewritterEffect';
+
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -76,20 +76,6 @@ const Home = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
     >
-      <motion.div
-        className="relative z-10 w-full mx-auto"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 1.5 }}
-      >
-        <h1 className="head_text text-center orange_gradient">
-          Discover & Share 
-          <br className="max-md:hidden" />
-          <span className="blue_gradient text-center"> AI-Powered Prompts</span> 
-        </h1>
-      </motion.div>
-      <TypewriterEffect words={words} />
       <AnimatePresence>
         {isVisible && (
           <motion.div
